@@ -1,0 +1,15 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exercise
+  namespace: rick-and-morty
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - image: quay.io/arieltw1/exercise:1.09072021-2c5d39f
+        name: api
+      terminationGracePeriodSeconds: 10
+
