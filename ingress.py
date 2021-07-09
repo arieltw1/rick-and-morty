@@ -1,11 +1,7 @@
-from flask import Flask, jsonify
+from flask import Flask, current_app
 import tablib
-import os
 
 app = Flask (__name__)
-#app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-
-#fun var
 
 dataset = tablib.Dataset()
 with open('results.csv') as f:
@@ -14,7 +10,7 @@ with open('results.csv') as f:
 
 @app.route("/")
 def index():
-    return jsonify(dataset.json)
+    return current_app.response_class(dataset.json, mimetype="application/json")
 
 
 if __name__ == "__main__":
