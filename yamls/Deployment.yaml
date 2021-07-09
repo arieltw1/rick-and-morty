@@ -6,7 +6,13 @@ metadata:
   namespace: rick-and-morty
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      rick-and-morty: "is cool"
   template:
+    metadata:
+      labels:
+        rick-and-morty: "is cool"
     spec:
       containers:
       - image: quay.io/arieltw1/exercise:1.09072021-2c5d39f
