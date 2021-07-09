@@ -1,25 +1,28 @@
 import requests
 import json
+import csv
 
 def main():
     url = 'https://rickandmortyapi.com/api/character/?species=human&status=alive'
     req = requests.get(url)
-
-    #print("HTTP Status Code: " + str(req.status_code))
-    #print(req.headers)
     json_obj = json.loads(req.content)
 
-    print(json_obj['info']['count'])
     pages = range(1, int(json_obj['info']['pages']+1))
-    print(pages)
+
+    csv_file = open("results.csv", "w") 
+    data = [['Name', 'Location', 'Image']]
+
     for page in pages:
         for char in json_obj['results']:
             if 'Earth' in char['origin']['name']:
-                print(char['name']+", "+char['location']['name']+", "+char['image'])
+                data.append([char['name'], char['location']['name'], char['image']])
+                #csv.writer(csv_file).writerow(data)
+
         req = requests.get(url+"&page="+str(page+1))
         json_obj = json.loads(req.content)
 
-#    print(json_obj['results'])
+    csv.writer(csv_file).writerows(data)
+    csv_file.close()
 
 if __name__ == '__main__':
     main()
