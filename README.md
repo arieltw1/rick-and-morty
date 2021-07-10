@@ -1,7 +1,4 @@
 # **Rick and Morty exercise**
-A **lazy** walkthrough of building and understanding Ansible-based operators for cloudlets.
-
-testing the operator inside of a pod on a Kubernetes cluster is desired. Running as a pod inside a Kubernetes cluster is preferred for production use.
 
 > **Note:** Before you start working with the content of this repo, make sure to login to the relevant registry and cluster.
 
@@ -92,8 +89,19 @@ You may also want to deploy that debug file, so you can use:
 | yamls/ | the directory which contain all the basic yaml manifest files used to deploy the app |
 | Helm/ | the directory which contain all the necesery helm structure files |
 
-## The Deployment
+## How to access the data
 
-The default Deployment manifest generated for the operator can be found in the **config/manager/manager.yaml** file. By default, the Deployment is named as &#39;controller-manager&#39;. It contains a single container named &#39;manager&#39;, and it may pick up a sidecar patch from the config/default directory. The Deployment will create a single Pod.
+The app may be used in multiple scenarios:
 
-For the container in the Pod, there are a few things to note. The default Deployment contains a placeholder for the container image to use, so you cannot create a meaningful operator using the YAML file directly. To deploy the operator, you will **run** `make deploy IMG=<IMG>`. The image name and tag are then patched using kustomize.
+- as a script:
+  - run `$ python3 code/gen_csv.py` 
+  - the script will generate a **results.csv** file with the relevenat data
+  - it can be viewed with: `$ column -s, -t < results.csv  | head` as a table
+- as a container:
+  - run `$ make run`
+  - access the data with an http GET request to **http://hostname:8080/**
+  - you may access ***/healthcheck*** 
+- as a kubernetes app:
+  - run `$ make deploy`
+  - access the ingress route
+  - you may access ***/healthcheck*** aswell 
