@@ -9,9 +9,11 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 spec:
   rules:
-  - host: rickandmorty.exercise.com
-    http:
-      paths:
-      backend:
-        serviceName: exercise-service
-        servicePort: http
+    - host: rickandmorty.exercise.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              serviceName: exercise-service
+              servicePort: http
