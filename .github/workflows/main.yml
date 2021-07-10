@@ -27,4 +27,4 @@ jobs:
         # kubectl expose -n rick-and-morty deployment exercise --type=NodePort --port=80
     - name: Test service URLs
       run: |
-        curl -k http://localhost/   
+        curl -k http://$(ip -a)/   
