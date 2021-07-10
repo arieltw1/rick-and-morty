@@ -105,3 +105,11 @@ The app may be used in multiple scenarios:
   - run `$ make deploy`
   - access the ingress route
   - you may access ***/healthcheck*** aswell 
+
+-----
+
+## '/'
+![image info](./json.png)
+
+## '/healthcheck'
+![image info](./health.png)
