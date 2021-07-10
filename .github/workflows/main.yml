@@ -21,7 +21,6 @@ jobs:
         docker build . -t exercise:latest
     - name: Deploy to minikube
       run: |
-        minikube addons enable ingress
         kubectl create namespace rick-and-morty
         kubectl apply -f yamls/
         kubectl expose deployment exercise --type=NodePort --port=80
