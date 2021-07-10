@@ -15,5 +15,5 @@ spec:
           - path: /
             pathType: Prefix
             backend:
-              serviceName: exercise-service
+              serviceName: rickandmorty.exercise.com
               servicePort: http
