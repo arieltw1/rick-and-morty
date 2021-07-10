@@ -6,12 +6,12 @@ IMG ?= $(IMG_REPO)/$(IMG_NAME):$(IMG_TAG)
 
 # Deploy in the configured Kubernetes cluster in ~/.kube/config
 deploy: 
-	cd config/manager && $(KUSTOMIZE) edit set image controller=${IMG}
-	$(KUSTOMIZE) build config/default | kubectl apply -f -
+	kubectl create namespace rick-and-morty	
+	kubectl apply -f yamls/
 
 # Undeploy in the configured Kubernetes cluster in ~/.kube/config
 undeploy:
-	$(KUSTOMIZE) build config/default | kubectl delete -f -
+	kubectl delete namespace rick-and-morty
 
 # Build the docker image
 build:

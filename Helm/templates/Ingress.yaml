@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Values.name | default "exercise"}}-ingress
+  namespace: {{ .Values.namespace | default "rick-and-morty" }}
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+spec:
+  rules:
+    - host: {{ .Values.namespace | default "rick-and-morty" }}.{{ .Values.name | default "exercise"}}.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              serviceName: {{ .Values.name | default "exercise"}}-service
+              servicePort: http
