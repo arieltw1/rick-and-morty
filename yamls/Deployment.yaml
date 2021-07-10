@@ -15,7 +15,7 @@ spec:
         rick-and-morty: "is-cool"
     spec:
       containers:
-      - image: quay.io/arieltw1/exercise:1.09072021-2c5d39f
+      - image: exercise:latest
         name: api
       terminationGracePeriodSeconds: 10
 
