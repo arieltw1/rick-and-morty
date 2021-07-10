@@ -23,7 +23,7 @@ jobs:
       run: |
         kubectl create namespace rick-and-morty
         kubectl apply -f yamls/
-        kubectl expose deployment exercise --type=NodePort --port=80
+        kubectl expose -n rick-and-morty deployment exercise --type=NodePort --port=80
     - name: Test service URLs
       run: |
         minikube service list
