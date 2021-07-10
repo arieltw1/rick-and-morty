@@ -134,7 +134,7 @@ The app may be used in multiple scenarios:
   - you may access ***/healthcheck*** 
 - as a kubernetes app:
   - run `$ make deploy`
-  - access the ingress route
+  - access the **ingress** route on port **80**
   - you may access ***/healthcheck*** aswell 
 
 
