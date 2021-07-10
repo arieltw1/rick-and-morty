@@ -17,6 +17,7 @@ jobs:
       run: |
         export SHELL=/bin/bash
         eval $(minikube -p minikube docker-env)
+        python3 code/gen_csv.py
         docker build . -t exercise:latest
     - name: Deploy to minikube
       run:
