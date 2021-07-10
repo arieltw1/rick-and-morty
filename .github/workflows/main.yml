@@ -27,5 +27,4 @@ jobs:
         # kubectl expose -n rick-and-morty deployment exercise --type=NodePort --port=80
     - name: Test service URLs
       run: |
-        minikube service exercise-service -n rick-and-morty --url
-        curl $(minikube service exercise-service -n rick-and-morty --url)   
+        curl -k http://localhost/   
