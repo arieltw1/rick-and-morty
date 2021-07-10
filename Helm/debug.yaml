@@ -38,7 +38,7 @@ spec:
         app: rick-and-morty
     spec:
       containers:
-        - image: quay.io/arieltw1/exercise:1.10072021-fc43211
+        - image: quay.io/arieltw1/exercise:1.10072021-d2b5e26
           name: not-an-api
       terminationGracePeriodSeconds: 10
 ---

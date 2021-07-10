@@ -11,6 +11,7 @@ NAMESPACE ?= rick-and-morty
 debug:
 	kubectl apply -f Helm/debug.yaml
 
+# Deploy using helm install command in the configured Kubernetes cluster in ~/.kube/config
 deploy:
 	helm install Helm/ --generate-name
 
