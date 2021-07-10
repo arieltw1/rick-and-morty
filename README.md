@@ -22,6 +22,22 @@
 - User authorized with permissions to create a namespace and manage it.
 
 ---
+
+## Make commands
+  
+| **Command** | **description** |
+| --- | --- |
+| build | build the image from the dockerfile |
+| push | Push the docker image, update helm values and debug the charts |
+| run | Run docker image in a container |
+| rm | Stop and remove container |
+| deploy | Deploy using helm install command in the configured Kubernetes cluster in ~/.kube/config |
+| debug | Deploy yamls generated from helm debug in the configured Kubernetes cluster in ~/.kube/config |
+| undeploy | Undeploy in the configured Kubernetes cluster in ~/.kube/config |
+
+
+---
+
 To build and push our image to a registry:
 
 `$ make build push` 
