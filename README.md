@@ -1,8 +1,8 @@
-# **Rick and Morty exercise**
+# Rick and Morty exercise
 
 > **Note:** Before you start working with the content of this repo, make sure to login to the relevant registry and cluster.
 
-## **Prerequisites**
+## Prerequisites
 - Bins:
   - helm
   - make
@@ -23,7 +23,23 @@
 
 ---
 
-## Make commands
+
+### Files structure
+  
+| **File Name** | **description** |
+| --- | --- |
+| Dockerfile | Original docker file, used when building in an open environment |
+| Makefile | containing a set of directives used by the &#39;make&#39; tool to help build and manage the project automatically |
+| requirements.txt | List of the required python modules, used when building the image |
+| code/ | the directory which contain all the scripts |
+| code/app.py | python flask app listening on 0.0.0.0:8080 |
+| code/gen_csv.py | the original script which saves the original data from rick-and-mrty-api inside a csv file |
+| code/version.sh | shell script to generate version id (used when building/pushing) |
+| yamls/ | the directory which contain all the basic yaml manifest files used to deploy the app |
+| Helm/ | the directory which contain all the necesery helm structure files |
+
+
+### Make commands
   
 | **Command** | **description** |
 | --- | --- |
@@ -36,7 +52,19 @@
 | undeploy | Undeploy in the configured Kubernetes cluster in ~/.kube/config |
 
 
----
+### Make vars that can be used on the go
+
+| **Vars** | **description** | **default** |
+| --- | --- | --- |
+| IMG_REGISTRY | image registry | `quay.io` |
+| IMG_REPO | image repo | `arieltw1` |
+| IMG_NAME | image name | `exercise` |
+| IMG_TAG | image tag | generated with `code/version.sh` |
+| VALUES_FILE | helm values file | `Helm/values.yaml` |
+| NAMESPACE | target namespace | `rick-and-morty` |
+
+
+## Quickstart
 
 To build and push our image to a registry:
 
@@ -49,6 +77,7 @@ You can overwrite what is set in the **Makefile**, for example- setting IMG\_TAG
 `$ make build push IMG_TAG=v0.0.1`
 
 ---
+
 In order to run our image localy for the first time we can run:
 
 `$ make build push run`
@@ -91,20 +120,6 @@ You may also want to deploy that debug file, so you can use:
 
 ---
 
-## Files structure
-  
-| **File Name** | **description** |
-| --- | --- |
-| Dockerfile | Original docker file, used when building in an open environment |
-| Makefile | containing a set of directives used by the &#39;make&#39; tool to help build and manage the project automatically |
-| requirements.txt | List of the required python modules, used when building the image |
-| code/ | the directory which contain all the scripts |
-| code/app.py | python flask app listening on 0.0.0.0:8080 |
-| code/gen_csv.py | the original script which saves the original data from rick-and-mrty-api inside a csv file |
-| code/version.sh | shell script to generate version id (used when building/pushing) |
-| yamls/ | the directory which contain all the basic yaml manifest files used to deploy the app |
-| Helm/ | the directory which contain all the necesery helm structure files |
-
 ## How to access the data
 
 The app may be used in multiple scenarios:
@@ -122,10 +137,13 @@ The app may be used in multiple scenarios:
   - access the ingress route
   - you may access ***/healthcheck*** aswell 
 
+
 -----
 
-## '/'
+
+## screenshots
+### '/'
 ![image info](./json.png)
 
-## '/healthcheck'
+### '/healthcheck'
 ![image info](./health.png)
