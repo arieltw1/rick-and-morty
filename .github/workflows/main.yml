@@ -22,9 +22,10 @@ jobs:
     - name: Deploy to minikube
       run: |
         kubectl create namespace rick-and-morty
-        kubectl apply -f yamls/Deployment.yaml
-        kubectl expose -n rick-and-morty deployment exercise --type=NodePort --port=80
+        kubectl apply -f yamls/
+        kubectl get ingress
+        # kubectl expose -n rick-and-morty deployment exercise --type=NodePort --port=80
     - name: Test service URLs
       run: |
-        minikube service exercise -n rick-and-morty --url
+        minikube service exercise-service -n rick-and-morty --url
         curl $(minikube service exercise -n rick-and-morty --url)   
