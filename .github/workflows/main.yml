@@ -20,7 +20,7 @@ jobs:
         python3 code/gen_csv.py
         docker build . -t exercise:latest
     - name: Deploy to minikube
-      run:
+      run: |
         kubectl create namespace rick-and-morty
         kubectl apply -f yamls/
     - name: Test service URLs
