@@ -1,8 +1,9 @@
 # Image URL to use all building/pushing image targets
-IMG_REPO ?= quay.io/arieltw1
+IMG_REGISTRY ?= quay.io
+IMG_REPO ?= arieltw1
 IMG_NAME ?= exercise
 IMG_TAG ?= $(shell ./code/version.sh)
-IMG ?= $(IMG_REPO)/$(IMG_NAME):$(IMG_TAG)
+IMG == $(IMG_REGISTRY)/$(IMG_REPO)/$(IMG_NAME):$(IMG_TAG)
 
 # Deploy in the configured Kubernetes cluster in ~/.kube/config
 deploy: 
@@ -22,6 +23,10 @@ build:
 # Push the docker image
 push:
 	docker push ${IMG}
+	sed -i 's/  registry.*/  registry: "$(IMG_REGISTRY)"/g'
+	sed -i 's/  repo.*/  repo: "$(IMG_REPO)"/g'
+	sed -i 's/  name.*/  name: "$(IMG_NAME)"/g'
+	sed -i 's/  tag.*/  tag: "$(IMG_TAG)"/g'
 
 # Run docker image in a container
 run:
