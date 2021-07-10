@@ -9,7 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 spec:
   rules:
-    - host: rickandmorty.exercise.com
+    - host: localhost
       http:
         paths:
           - path: /
