@@ -38,7 +38,7 @@ In order to run our image localy for the first time we can run:
 `$ make build push run`
 
 
-When we want to rerun the container using a new image we may run:
+When we want to rerun the container using a new image, we may run:
 
 `$ make build push rm run`
 
