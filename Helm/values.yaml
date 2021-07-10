@@ -1,10 +1,10 @@
 name: "not-an-exercise"
-namespace: "not-rick-and-not-morty"
+namespace: "rick-and-morty"
 image:
   registry: "quay.io"
   repo: "arieltw1"
   name: "exercise"
-  tag: "1.10072021-40a1720"
+  tag: "1.10072021-fc43211"
 container_name: "not-an-api"
 # port: 80
 # app_port: 8080

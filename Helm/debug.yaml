@@ -3,18 +3,18 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: not-rick-and-not-morty
+  name: rick-and-morty
 ---
 # Source: rick-and-morty-exercise/templates/Service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: not-an-exercise-service
-  namespace: not-rick-and-not-morty
+  namespace: rick-and-morty
 spec:
   type: ClusterIP
   selector:
-    app: not-rick-and-not-morty 
+    app: rick-and-morty 
   ports:
     - protocol: TCP
       port: 80
@@ -26,19 +26,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: not-an-exercise
-  namespace: not-rick-and-not-morty
+  namespace: rick-and-morty
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: not-rick-and-not-morty
+      app: rick-and-morty
   template:
     metadata:
       labels:
-        app: not-rick-and-not-morty
+        app: rick-and-morty
     spec:
       containers:
-        - image: quay.io/arieltw1/exercise:1.10072021-40a1720
+        - image: quay.io/arieltw1/exercise:1.10072021-fc43211
           name: not-an-api
       terminationGracePeriodSeconds: 10
 ---
@@ -47,13 +47,13 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: not-an-exercise-ingress
-  namespace: not-rick-and-not-morty
+  namespace: rick-and-morty
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 spec:
   rules:
-    - host: not-rick-and-not-morty.not-an-exercise.com
+    - host: rick-and-morty.not-an-exercise.com
       http:
         paths:
           - path: /

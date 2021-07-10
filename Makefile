@@ -27,7 +27,7 @@ build:
 # Push the docker image, update helm values and debug the charts
 push:
 	docker push ${IMG}
-	sed -i 's/namespace.*/namespace: "$(NAMESPACE)"/g' $(NAMESPACE)
+	sed -i 's/namespace.*/namespace: "$(NAMESPACE)"/g' $(VALUES_FILE)
 	sed -i 's/  registry.*/  registry: "$(IMG_REGISTRY)"/g' $(VALUES_FILE)
 	sed -i 's/  repo.*/  repo: "$(IMG_REPO)"/g' $(VALUES_FILE)
 	sed -i 's/  name.*/  name: "$(IMG_NAME)"/g' $(VALUES_FILE)
