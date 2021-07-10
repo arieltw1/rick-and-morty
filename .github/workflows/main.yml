@@ -27,6 +27,6 @@ jobs:
     - name: Test service URLs
       run: |
         minikube service list
-        minikube service exercise-service -n rick-and-morty  --url
+        minikube service exercise -n rick-and-morty  --url
         echo "------------------opening the service------------------"
-        curl $(minikube service exercise-service -n rick-and-morty --url)   
+        curl $(minikube service exercise -n rick-and-morty --url)   
