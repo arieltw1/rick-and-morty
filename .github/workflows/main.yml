@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   job1:
-    name: Example Minikube-Kubernetes Cluster interaction
+    name: k3d-Kubernetes Cluster interaction
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,10 +24,10 @@ jobs:
           docker build . -t exercise:latest
       - name: Deploy to minikube
         run: |
+          kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.47.0/deploy/static/provider/cloud/deploy.yaml
           kubectl create namespace rick-and-morty
           kubectl apply -f yamls/
           kubectl get ingress -n rick-and-morty
-          # kubectl expose -n rick-and-morty deployment exercise --type=NodePort --port=80
       - name: Test service URLs
         run: |
           curl -k http://$(ip a)/   
