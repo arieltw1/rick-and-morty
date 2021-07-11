@@ -19,8 +19,8 @@ jobs:
           kubectl get no
           kubectl get pods -A -o wide
           sudo microk8s enable ingress
-      - name: Sleep for 60 seconds
-        run: sleep 60s
+      - name: Sleep for 30 seconds
+        run: sleep 30s
         shell: bash
       - name: check ingress controller
         run: |
@@ -33,12 +33,12 @@ jobs:
         run: |
           kubectl create namespace rick-and-morty
           kubectl apply -f yamls/
-      - name: Sleep for 0 seconds
-        run: sleep 30s
+      - name: Sleep for 10 seconds
+        run: sleep 10s
         shell: bash
       - name: check ingress
         run: |
           kubectl get ingress -n rick-and-morty
       - name: Test service URLs
         run: |
-          curl -k http://$(ip a)/   
+          curl -k http://127.0.0.1/   
