@@ -10,12 +10,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Setup Minikube
-        uses: manusa/actions-setup-minikube@v2.4.2
+      - uses: AbsaOSS/k3d-action@v1.5.0
+        name: "Create Single Cluster"
         with:
-          minikube version: 'v1.16.0'
-          kubernetes version: 'v1.19.2'
-          github token: ${{ secrets.GITHUB_TOKEN }}
+          cluster-name: "test-cluster-1"
+          args: --agents 1
       - name: Interact with the cluster
         run: kubectl get nodes
       - name: Build image
