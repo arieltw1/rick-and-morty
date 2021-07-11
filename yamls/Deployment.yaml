@@ -17,5 +17,7 @@ spec:
       containers:
       - image: exercise:latest
         name: api
+        ports:
+          - containerPort: 8080
       terminationGracePeriodSeconds: 10
 
