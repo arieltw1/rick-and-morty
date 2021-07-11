@@ -24,10 +24,9 @@ jobs:
         shell: bash
       - name: check ingress controller
         run: |
-          kubectl get pods -n kube-system | grep nginx-ingress-controller
+          kubectl get pods --all-namespaces | grep nginx-ingress-microk8s-controller
       - name: Build image
         run: |
-          export SHELL=/bin/bash
           python3 code/gen_csv.py
           docker build . -t exercise:latest
       - name: Deploy 
