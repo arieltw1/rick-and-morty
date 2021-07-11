@@ -5,7 +5,6 @@ metadata:
   name: exercise-service
   namespace: rick-and-morty
 spec:
-  type: ClusterIP
   selector:
     rick-and-morty: "is-cool"
   ports:
