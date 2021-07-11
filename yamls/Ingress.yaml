@@ -1,5 +1,5 @@
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: exercise-ingress
@@ -9,11 +9,11 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 spec:
   rules:
-    - host: localhost
+    - host: rickandmorty.exercise
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
-              serviceName: rickandmorty.exercise.com
+              serviceName: exercise-service
               servicePort: http
