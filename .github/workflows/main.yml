@@ -10,24 +10,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - uses: AbsaOSS/k3d-action@v1.5.0
-        name: "Create Single Cluster"
+      - uses: balchua/microk8s-actions@v0.2.1
         with:
-          cluster-name: "test-cluster-1"
-          args: --agents 1
-      - name: Interact with the cluster
-        run: kubectl get nodes
+          channel: '1.19/stable'
+          addons: '["dns", "rbac", "storage", "registry", "metrics-server"]'
+      - name: Test MicroK8s
+        run: |
+          kubectl get no
+          kubectl get pods -A -o wide
+          microk8s enable ingress
       - name: Build image
         run: |
           export SHELL=/bin/bash
           python3 code/gen_csv.py
           docker build . -t exercise:latest
-      - name: Deploy to minikube
+      - name: Deploy 
         run: |
-          kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.47.0/deploy/static/provider/cloud/deploy.yaml
-          POD_NAMESPACE=ingress-nginx
-          POD_NAME=$(kubectl get pods -n $POD_NAMESPACE -l app.kubernetes.io/name=ingress-nginx --field-selector=status.phase=Running -o jsonpath='{.items[0].metadata.name}')
-          kubectl exec -it $POD_NAME -n $POD_NAMESPACE -- /nginx-ingress-controller --version
           kubectl create namespace rick-and-morty
           kubectl apply -f yamls/
           kubectl get ingress -n rick-and-morty
