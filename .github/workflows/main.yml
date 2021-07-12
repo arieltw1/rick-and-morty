@@ -13,42 +13,18 @@ jobs:
       - uses: balchua/microk8s-actions@v0.2.1
         with:
           channel: '1.19/stable'
-          addons: '["dns", "rbac", "storage", "registry", "ingress"]'
+          addons: '["dns", "ingress"]'
       - name: Test MicroK8s
         run: |
           kubectl get no
           kubectl get pods -A -o wide
       - name: Generate CSV
         run: python3 code/gen_csv.py
-      # This is the a separate action that sets up buildx runner
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      # So now you can use Actions' own caching!
-      - name: Cache Docker layers
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-      # And make it available for the builds
-      - name: Build
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: false
-          tags: exercise:latest
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new
-      - name: Move cache
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
       - name: Deploy 
         run: |
-          docker build . -t exercise:latest 
-          docker save exercise:latest > exercise.tar
-          sudo microk8s.ctr image import exercise.tar
+          docker build . -t quay.io/arieltw1/exercise:latest
+          docker login -u="arieltw1+builder" -p="R975BJYCCIVS68HXVSKN3GUCVN0N58CL4WZAISPT7ZGT0A5SIKRHL9MGU2XBZ9K3" quay.io
+          docker push quay.io/arieltw1/exercise:latest
           kubectl create namespace rick-and-morty
           kubectl apply -f yamls/
       - name: Sleep for 30 seconds
