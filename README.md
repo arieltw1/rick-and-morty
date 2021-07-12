@@ -140,6 +140,23 @@ The app may be used in multiple scenarios:
 
 -----
 
+### Github Actions Workflow
+  
+| **steps** | **description** |
+| --- | --- |
+| Checkout | checks-out the repository so the workflow could access it|
+| Create microk8s cluster | install a microk8s cluster with `dns` and `ingress` enabled |
+| Test MicroK8s | test if the cluster is working currectly |
+| Generate CSV | generate our CSV with the `gen_csv.py` script |
+| Build and push | build the image under **latest** tag and push it |
+| Deploy  | Deploy yamls in the configured Microk8s cluster |
+| wait for application to be ready | wait for 30 sec so all the resource are up and running |
+| Check ingress controller  | check to see if there are any errors in the ingress controller logs |
+| Check ingress and pods  | check the app's ingress and pods status |
+| Test service URLs  | curl to our endpoints to see if we are able to fetch the data correctly |
+
+
+-----
 
 ## screenshots
 ### '/'
