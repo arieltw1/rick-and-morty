@@ -4,15 +4,17 @@ kind: Deployment
 metadata:
   name: exercise
   namespace: rick-and-morty
+  labels:
+    app: "exercise"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      rick-and-morty: "is-cool"
+      app: "exercise"
   template:
     metadata:
       labels:
-        rick-and-morty: "is-cool"
+        app: "exercise"
     spec:
       containers:
       - image: exercise:latest
