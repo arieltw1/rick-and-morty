@@ -41,5 +41,5 @@ jobs:
           kubectl get pods -n rick-and-morty
       - name: Test service URLs
         run: |
-          curl http://localhost/
           curl http://localhost/healthcheck
+          curl http://localhost/
