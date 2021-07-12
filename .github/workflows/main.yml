@@ -36,8 +36,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          push: true
-          tags: localhost:32000/exercise:latest
+          push: false
+          tags: exercise:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       - name: Move cache
@@ -46,6 +46,9 @@ jobs:
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
       - name: Deploy 
         run: |
+          docker save exercise:latest > exercise.tar
+          sudo microk8s.ctr -n k8s.io image import exercise.tar
+          sudo microk8s.ctr -n k8s.io images ls --name~=exercise
           kubectl create namespace rick-and-morty
           kubectl apply -f yamls/
       - name: Sleep for 30 seconds
