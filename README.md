@@ -142,6 +142,8 @@ The app may be used in multiple scenarios:
 
 ### Github Actions Workflow
   
+The following workflow contains only 1 job, with the purpose of building the code inside an image and testing it on a microk8s cluster.
+ 
 | **steps** | **description** |
 | --- | --- |
 | Checkout | checks-out the repository so the workflow could access it|
