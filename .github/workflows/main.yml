@@ -20,7 +20,7 @@ jobs:
           kubectl get pods -A -o wide
       - name: check ingress controller
         run: |
-          kubectl get pods --all-namespaces | grep nginx-ingress-microk8s-controller
+          kubectl get pods -A | grep nginx-ingress-microk8s-controller | awk '{print "kubectl logs -n " $1 " " $2}' | sh
       - name: Build image
         run: |
           python3 code/gen_csv.py
