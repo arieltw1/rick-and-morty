@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   job1:
-    name: k3d-Kubernetes Cluster interaction
+    name: Microk8s Cluster interaction
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,9 +18,6 @@ jobs:
         run: |
           kubectl get no
           kubectl get pods -A -o wide
-      - name: check ingress controller
-        run: |
-          kubectl get pods -A | grep nginx-ingress-microk8s-controller | awk '{print "kubectl logs -n " $1 " " $2}' | sh
       - name: Build image
         run: |
           python3 code/gen_csv.py
@@ -35,6 +32,9 @@ jobs:
       - name: check ingress
         run: |
           kubectl get ingress -n rick-and-morty
+      - name: check ingress controller
+        run: |
+          kubectl get pods -A | grep nginx-ingress-microk8s-controller | awk '{print "kubectl logs -n " $1 " " $2}' | sh
       - name: Test service URLs
         run: |
           curl -k http://127.0.0.1/   
