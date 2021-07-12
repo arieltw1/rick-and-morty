@@ -13,7 +13,7 @@ jobs:
       - uses: balchua/microk8s-actions@v0.2.1
         with:
           channel: '1.19/stable'
-          addons: '["dns", "registry" , "ingress"]'
+          addons: '["dns", "rbac", "storage", "registry", "ingress"]'
       - name: Test MicroK8s
         run: |
           kubectl get no
