@@ -46,6 +46,7 @@ jobs:
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
       - name: Deploy 
         run: |
+          docker build . -t exercise:latest 
           docker save exercise:latest > exercise.tar
           sudo microk8s.ctr -n k8s.io image import exercise.tar
           sudo microk8s.ctr -n k8s.io images ls --name~=exercise
