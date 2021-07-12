@@ -13,7 +13,7 @@ jobs:
       - uses: balchua/microk8s-actions@v0.2.1
         with:
           channel: '1.19/stable'
-          addons: '["dns", "ingress"]'
+          addons: '["dns", "registry" , "ingress"]'
       - name: Test MicroK8s
         run: |
           kubectl get no
@@ -36,8 +36,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          push: false
-          tags: exercise:latest
+          push: true
+          tags: localhost:32000/exercise:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       - name: Move cache
@@ -60,4 +60,4 @@ jobs:
           kubectl get pods -A | grep nginx-ingress-microk8s-controller | awk '{print "kubectl logs -n " $1 " " $2}' | sh
       - name: Test service URLs
         run: |
-          curl -k http://127.0.0.1/   
+          curl -k http://localhost/   
