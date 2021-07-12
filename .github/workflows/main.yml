@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   job1:
-    name: Microk8s Cluster interaction
+    name: rick and morty exercise
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,23 +20,27 @@ jobs:
           kubectl get pods -A -o wide
       - name: Generate CSV
         run: python3 code/gen_csv.py
-      - name: Deploy 
+      - name: Build and push
         run: |
           docker build . -t quay.io/arieltw1/exercise:latest
           docker login -u="arieltw1+builder" -p="R975BJYCCIVS68HXVSKN3GUCVN0N58CL4WZAISPT7ZGT0A5SIKRHL9MGU2XBZ9K3" quay.io
           docker push quay.io/arieltw1/exercise:latest
+      - name: Deploy 
+        run: |
           kubectl create namespace rick-and-morty
           kubectl apply -f yamls/
-      - name: Sleep for 30 seconds
+      - name: wait for application to be ready
         run: sleep 30s
         shell: bash
-      - name: check ingress
+      - name: Check ingress and pods
         run: |
           kubectl get ingress -n rick-and-morty
-      - name: check ingress controller
+          kubectl get pods -n rick-and-morty
+      - name: Check ingress controller
         run: |
           kubectl get pods -n rick-and-morty
           kubectl get pods -A | grep nginx-ingress-microk8s-controller | awk '{print "kubectl logs -n " $1 " " $2}' | sh
       - name: Test service URLs
         run: |
-          curl -k http://localhost/   
+          curl http://localhost/
+          curl http://localhost/healthcheck
