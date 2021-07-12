@@ -10,7 +10,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - uses: balchua/microk8s-actions@v0.2.1
+      - name: Create microk8s cluster
+        uses: balchua/microk8s-actions@v0.2.1
         with:
           channel: '1.19/stable'
           addons: '["dns", "ingress"]'
