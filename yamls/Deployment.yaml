@@ -17,7 +17,7 @@ spec:
         app: "exercise"
     spec:
       containers:
-      - image: exercise:latest
+      - image: quay.io/arieltw1/exercise:latest
         name: api
         ports:
           - containerPort: 8080
